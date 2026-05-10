@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#003B5C" />
-<meta name="description" content="The Executive AI Readiness Diagnostic â based on Dr. Rohan Jowallah's AI for the Executive Worker workshop. CARE, CRAFT, ACRE, CALF/SECAS, and the Jowallah Governance Wheel. Caribbean-themed, accessible." />
+<meta name="description" content="The Executive AI Readiness Diagnostic — based on Dr. Rohan Jowallah's AI for the Executive Worker workshop. CARE, CRAFT, ACRE, CALF/SECAS, and the Jowallah Governance Wheel. Caribbean-themed, accessible." />
 <meta name="author" content="Dr. Rohan Jowallah" />
-<title>The Executive AI Readiness Diagnostic â Dr. Rohan Jowallah</title>
+<title>The Executive AI Readiness Diagnostic — Dr. Rohan Jowallah</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -271,8 +271,8 @@ const CALF_FIELDS = [
 
 const SECAS_FIELDS = [
   { k: "strategy",        label: "Strategy",        hint: "AI named in the strategic plan with measurable outcomes." },
-  { k: "ethics",          label: "Ethics",          hint: "Explicit ethics framework â equity, privacy, accountability â governs AI use." },
-  { k: "capability",      label: "Capability",      hint: "Continuing investment in workforce capability, treated as recurrent â not one-off." },
+  { k: "ethics",          label: "Ethics",          hint: "Explicit ethics framework — equity, privacy, accountability — governs AI use." },
+  { k: "capability",      label: "Capability",      hint: "Continuing investment in workforce capability, treated as recurrent — not one-off." },
   { k: "accountability",  label: "Accountability",  hint: "Named individuals accountable for AI outcomes at every level." },
   { k: "sustainability",  label: "Sustainability",  hint: "AI deployment is environmentally, financially, and culturally sustainable long-term." },
 ];
@@ -342,18 +342,18 @@ function computeDiagnostic(d) {
   // Strategic frame (max 12)
   if (d.strategy.posture) {
     score += 3;
-    if (d.strategy.posture === "buy") strengths.push("Strategic posture is Buy â aligned with MIT NANDA's evidence that purchased AI outperforms in-house builds.");
+    if (d.strategy.posture === "buy") strengths.push("Strategic posture is Buy — aligned with MIT NANDA's evidence that purchased AI outperforms in-house builds.");
     if (d.strategy.posture === "build") flags.push({ level: "soft", text: "Build is the path of last resort. MIT NANDA found purchased solutions outperform in-house builds 2:1 on measurable P&L impact. Defend the build decision against a defensible buy alternative." });
   } else {
     flags.push({ level: "hard", text: "No Buy/Partner/Build posture chosen. The first executive call on any AI capability is which path; not making it explicitly is the most common failure mode in the GenAI Divide." });
   }
   const sov = (d.strategy.soverData + d.strategy.soverDecisions + d.strategy.soverValues);
-  score += Math.round(sov / 15 * 6); // 6 points for sovereignty (3-15 â 1-6)
+  score += Math.round(sov / 15 * 6); // 6 points for sovereignty (3-15 → 1-6)
   if (sov >= 12) strengths.push("Sovereign AI principles (data, decisions, values) are deliberately addressed.");
   if (sov < 7) flags.push({ level: "hard", text: "Sovereign AI principles are weak across data, decisions, and values. AI deployed without sovereignty becomes a procurement liability." });
   if (d.strategy.pAndLTarget && wordCount(d.strategy.pAndLTarget) >= 4) {
     score += 3;
-    strengths.push("A measurable P&L target is named â distinguishes you from the 95% of pilots without one.");
+    strengths.push("A measurable P&L target is named — distinguishes you from the 95% of pilots without one.");
   } else {
     flags.push({ level: "hard", text: "No measurable P&L target. MIT NANDA's 95% failure rate is overwhelmingly pilots that never named the financial outcome they were chasing." });
   }
@@ -373,9 +373,9 @@ function computeDiagnostic(d) {
   let craftFilled = 0;
   craftKeys.forEach(k => { if (d.craft[k] && wordCount(d.craft[k]) >= 4) craftFilled += 1; });
   score += craftFilled * 2.4;
-  if (craftFilled === 5) strengths.push("CRAFT prompt architecture is fully specified â minimises hallucination and scope drift.");
+  if (craftFilled === 5) strengths.push("CRAFT prompt architecture is fully specified — minimises hallucination and scope drift.");
   if (d.craft.threshold && /pedagog|learn|board|risk|evidence|justif|equit|p&l|measurable/i.test(d.craft.threshold)) {
-    strengths.push("CRAFT threshold names what 'good enough' means â not just task completion.");
+    strengths.push("CRAFT threshold names what 'good enough' means — not just task completion.");
   }
 
   // ACRE (max 12)
@@ -385,21 +385,21 @@ function computeDiagnostic(d) {
   score += acreFilled * 3;
   if (acreFilled === 4) strengths.push("ACRE output assurance dimensions are all addressed.");
   if (!d.acre.equity || wordCount(d.acre.equity) < 4) {
-    flags.push({ level: "hard", text: "ACRE Equity is unaddressed. AI without equity governance is a regulatory and reputational liability â and a strategic abdication." });
+    flags.push({ level: "hard", text: "ACRE Equity is unaddressed. AI without equity governance is a regulatory and reputational liability — and a strategic abdication." });
   }
 
   // CALF (max 12)
   const calfSum = d.calf.capacity + d.calf.adoption + d.calf.literacy + d.calf.fluency; // 4-20
   score += Math.round(((calfSum - 4) / 16) * 12);
   if (calfSum >= 16) strengths.push("CALF readiness conditions (capacity, adoption, literacy, fluency) are strong.");
-  if (calfSum <= 8) flags.push({ level: "hard", text: "CALF readiness is weak â at least one of capacity, adoption, literacy, or fluency is critically underdeveloped. AI adoption will be performative, not sovereign." });
+  if (calfSum <= 8) flags.push({ level: "hard", text: "CALF readiness is weak — at least one of capacity, adoption, literacy, or fluency is critically underdeveloped. AI adoption will be performative, not sovereign." });
 
   // SECAS (max 13)
   const secasSum = d.secas.strategy + d.secas.ethics + d.secas.capability + d.secas.accountability + d.secas.sustainability; // 5-25
   score += Math.round(((secasSum - 5) / 20) * 13);
   if (secasSum >= 20) strengths.push("SECAS governance overlay (strategy, ethics, capability, accountability, sustainability) is in place.");
   if (d.secas.accountability <= 2) flags.push({ level: "hard", text: "Named accountability is missing. Without individuals accountable for AI outcomes at every level, governance is theatre." });
-  if (d.secas.ethics <= 2) flags.push({ level: "hard", text: "Ethics framework is weak. Equity, privacy, and accountability cannot be added later as a wrapper â they must be designed in." });
+  if (d.secas.ethics <= 2) flags.push({ level: "hard", text: "Ethics framework is weak. Equity, privacy, and accountability cannot be added later as a wrapper — they must be designed in." });
 
   // Governance Wheel (max 22)
   const wheelKeys = Object.keys(d.wheel);
@@ -408,7 +408,7 @@ function computeDiagnostic(d) {
   const wheelStrong = wheelKeys.filter(k => d.wheel[k] >= 4).length;
   const wheelWeak = wheelKeys.filter(k => d.wheel[k] <= 2);
   if (wheelStrong >= 6) strengths.push(`Governance Wheel is strong on ${wheelStrong} of 8 domains.`);
-  if (wheelWeak.length >= 3) flags.push({ level: "hard", text: `Governance Wheel has ${wheelWeak.length} domains scoring 2 or below. The Wheel rotates â every weak domain becomes the next incident.` });
+  if (wheelWeak.length >= 3) flags.push({ level: "hard", text: `Governance Wheel has ${wheelWeak.length} domains scoring 2 or below. The Wheel rotates — every weak domain becomes the next incident.` });
   if (d.wheel.public <= 2) flags.push({ level: "soft", text: "Public accountability is weak. Stakeholders need named owners and a channel to raise concerns; opacity becomes a liability." });
 
   score = Math.max(0, Math.min(100, Math.round(score)));
@@ -480,8 +480,8 @@ const ScaleInput = ({ value, onChange, ariaLabel, leftLabel = "Absent", rightLab
         ))}
       </div>
       <div className="flex justify-between mt-2 font-mono-soft" style={{ fontSize: "11px", color: "var(--ink-2)", letterSpacing: "0.1em", textTransform: "uppercase", maxWidth: 240 }}>
-        <span>1 Â· {leftLabel}</span>
-        <span>5 Â· {rightLabel}</span>
+        <span>1 · {leftLabel}</span>
+        <span>5 · {rightLabel}</span>
       </div>
     </div>
   );
@@ -517,7 +517,7 @@ const StepSetup = ({ data, update }) => {
         idInit = useId(), idMat = useId(), idSpend = useId();
   return (
     <section className="fade-up">
-      <SectionHeading eyebrow="01 â The Executive Context"
+      <SectionHeading eyebrow="01 — The Executive Context"
         title="Who you are, and what you are about to govern."
         lede="The Executive AI Readiness Diagnostic is a strategic instrument, not a generic assessment. Anchor it in the actual organisation, the actual role, and the actual AI initiative on your desk this quarter." />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
@@ -534,7 +534,7 @@ const StepSetup = ({ data, update }) => {
         <div>
           <FieldLabel htmlFor={idSize} label="Size (revenue or headcount)" />
           <TextInput id={idSize} value={data.size} onChange={(v) => update("size", v)}
-            placeholder="e.g., 2,400 staff Â· USD 480M revenue" />
+            placeholder="e.g., 2,400 staff · USD 480M revenue" />
         </div>
         <div>
           <FieldLabel htmlFor={idRole} label="Your role" />
@@ -543,7 +543,7 @@ const StepSetup = ({ data, update }) => {
         </div>
         <div className="md:col-span-2">
           <FieldLabel htmlFor={idInit} label="Candidate AI initiative under your accountability"
-            hint="Name one specific AI capability or initiative â this diagnostic will hold it to the frameworks." required />
+            hint="Name one specific AI capability or initiative — this diagnostic will hold it to the frameworks." required />
           <TextArea id={idInit} value={data.initiative} onChange={(v) => update("initiative", v)}
             placeholder="e.g., Deploying an AI-assisted customer-service triage system across the contact-centre estate by Q3 2026." />
         </div>
@@ -553,9 +553,9 @@ const StepSetup = ({ data, update }) => {
           <select id={idMat} value={data.maturity}
             onChange={(e) => update("maturity", e.target.value)}
             className="field-input w-full px-4 py-3">
-            <option value="">â Select â</option>
+            <option value="">— Select —</option>
             <option value="exploring">Exploring (no production AI in use)</option>
-            <option value="piloting">Piloting (1â3 production pilots)</option>
+            <option value="piloting">Piloting (1–3 production pilots)</option>
             <option value="scaling">Scaling (multiple deployments, governance in place)</option>
             <option value="mature">Mature (AI integrated into operating model, measured impact)</option>
           </select>
@@ -574,8 +574,8 @@ const StepStrategy = ({ data, update }) => {
   const idPL = useId();
   return (
     <section className="fade-up">
-      <SectionHeading eyebrow="02 â Strategic Frame"
-        title="Buy, Partner, or Build â and on what sovereignty terms?"
+      <SectionHeading eyebrow="02 — Strategic Frame"
+        title="Buy, Partner, or Build — and on what sovereignty terms?"
         lede="MIT NANDA's GenAI Divide research found purchased AI outperforms in-house builds. The first executive call is which path. The second is whether the procurement protects sovereignty over data, decisions, and values." />
 
       <div className="mt-8">
@@ -618,7 +618,7 @@ const StepStrategy = ({ data, update }) => {
 
       <div className="mt-10">
         <FieldLabel label="Sovereign AI assessment"
-          hint="Rate the protections in place for this initiative. Sovereignty is not anti-vendor â it is the terms on which external tools are adopted." />
+          hint="Rate the protections in place for this initiative. Sovereignty is not anti-vendor — it is the terms on which external tools are adopted." />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
           <div>
             <p className="font-display" style={{ fontSize: "16px", fontVariationSettings: '"opsz" 14, "wght" 600', marginBottom: "8px" }}>Sovereignty over data</p>
@@ -651,23 +651,23 @@ const StepStrategy = ({ data, update }) => {
 const CARE_FIELDS = [
   { k: "consider", label: "Consider", prompt: "What is the actual business problem, and what alternatives have you weighed?",
     hint: "AI should not be the first move. Name the problem, then name two non-AI alternatives you considered.",
-    placeholder: "Problem: 38% of contact-centre tickets are routine FAQ-equivalent. Alternatives weighed: (a) IVR redesign, (b) outsourced overflow, (c) AI-assisted triage. AI selected becauseâ¦" },
-  { k: "analyse", label: "Analyse", prompt: "Data, process, and people implications â laid out honestly.",
+    placeholder: "Problem: 38% of contact-centre tickets are routine FAQ-equivalent. Alternatives weighed: (a) IVR redesign, (b) outsourced overflow, (c) AI-assisted triage. AI selected because…" },
+  { k: "analyse", label: "Analyse", prompt: "Data, process, and people implications — laid out honestly.",
     hint: "What data does the AI need? What workflows must change? Whose work is affected, and how?",
-    placeholder: "Data: 4 years of ticket logs, redacted. Process: triage stage rebuilt; agents review AI suggestions before sending. People: 240 agents reskill from initial response to escalation handlingâ¦" },
+    placeholder: "Data: 4 years of ticket logs, redacted. Process: triage stage rebuilt; agents review AI suggestions before sending. People: 240 agents reskill from initial response to escalation handling…" },
   { k: "reflect", label: "Reflect", prompt: "Who is affected, what is the equity and risk profile?",
-    hint: "Reflection is not a footer. Who carries the downside if this is wrong â customers, staff, vulnerable groups?",
-    placeholder: "Affected: customers in low-bandwidth regions may be disadvantaged by chat-first triage. Risk: model bias amplifies if training data over-represents urban English speakersâ¦" },
-  { k: "evaluate", label: "Evaluate", prompt: "Success criteria â and explicit kill criteria.",
+    hint: "Reflection is not a footer. Who carries the downside if this is wrong — customers, staff, vulnerable groups?",
+    placeholder: "Affected: customers in low-bandwidth regions may be disadvantaged by chat-first triage. Risk: model bias amplifies if training data over-represents urban English speakers…" },
+  { k: "evaluate", label: "Evaluate", prompt: "Success criteria — and explicit kill criteria.",
     hint: "Without a kill criterion, the initiative cannot be governed. Name the conditions under which you would stop.",
-    placeholder: "Success: â¥18% cost-to-serve reduction by Q4 2026, customer-satisfaction at parity. Kill: agent-override rate >35% sustained over two months, or any equity-flag incident at P1 severity." },
+    placeholder: "Success: ≥18% cost-to-serve reduction by Q4 2026, customer-satisfaction at parity. Kill: agent-override rate >35% sustained over two months, or any equity-flag incident at P1 severity." },
 ];
 
 const StepCARE = ({ data, update }) => (
   <section className="fade-up">
-    <SectionHeading eyebrow="03 â CARE Â· Strategic Decision Frame"
+    <SectionHeading eyebrow="03 — CARE · Strategic Decision Frame"
       title="The four-phase decision discipline before you commission AI."
-      lede="CARE â Consider, Analyse, Reflect, Evaluate â is the strategic decision frame applied to a candidate AI initiative. Each phase produces a deliverable that becomes the basis of board accountability." />
+      lede="CARE — Consider, Analyse, Reflect, Evaluate — is the strategic decision frame applied to a candidate AI initiative. Each phase produces a deliverable that becomes the basis of board accountability." />
     <ol className="mt-8 space-y-7" style={{ listStyle: "none", padding: 0 }}>
       {CARE_FIELDS.map((f, idx) => {
         const id = `care-${f.k}`;
@@ -692,21 +692,21 @@ const StepCARE = ({ data, update }) => (
 const CRAFT_FIELDS = [
   { k: "context",   label: "Context",   hint: "What does the AI need to know about the organisation, the data, and the moment?",
     placeholder: "Mid-sized retail bank in Jamaica, 1.2M retail customers, Q3 2026, regulated by the BoJ; current contact volume 14k tickets/week." },
-  { k: "role",      label: "Role",      hint: "What role should the AI play â not the user's role; the AI's.",
+  { k: "role",      label: "Role",      hint: "What role should the AI play — not the user's role; the AI's.",
     placeholder: "A first-line triage assistant that classifies tickets, drafts responses for human review, and flags any item the agent must handle directly." },
   { k: "action",    label: "Action",    hint: "Concretely, what is the AI being asked to do?",
     placeholder: "Read incoming ticket, classify into one of 14 categories, draft a customer response in English or Patois, and surface relevant policy links to the agent." },
   { k: "format",    label: "Format",    hint: "What structure should the AI's output take?",
     placeholder: "JSON: { category, confidence, draft_response, policy_refs[], escalate_required (bool), reason_if_escalate }" },
-  { k: "threshold", label: "Threshold", hint: "What counts as 'good enough' â pedagogically, financially, ethically? Not just 'task complete'.",
-    placeholder: "Confidence â¥0.85 OR an explicit escalation. Draft response audited against ACRE before send. Equity flag triggers human review regardless of confidence." },
+  { k: "threshold", label: "Threshold", hint: "What counts as 'good enough' — pedagogically, financially, ethically? Not just 'task complete'.",
+    placeholder: "Confidence ≥0.85 OR an explicit escalation. Draft response audited against ACRE before send. Equity flag triggers human review regardless of confidence." },
 ];
 
 const StepCRAFT = ({ data, update }) => (
   <section className="fade-up">
-    <SectionHeading eyebrow="04 â CRAFT Â· AI Architecture"
+    <SectionHeading eyebrow="04 — CRAFT · AI Architecture"
       title="An AI without architecture is a vending machine."
-      lede="CRAFT â Context, Role, Action, Format, Threshold â forces deliberate prompting and capability design. The Threshold is the executive control: it names what 'good enough' means, not just 'task complete'." />
+      lede="CRAFT — Context, Role, Action, Format, Threshold — forces deliberate prompting and capability design. The Threshold is the executive control: it names what 'good enough' means, not just 'task complete'." />
     <div className="mt-8 space-y-6">
       {CRAFT_FIELDS.map((f) => {
         const id = `craft-${f.k}`;
@@ -729,7 +729,7 @@ const StepCRAFT = ({ data, update }) => (
 );
 
 const ACRE_FIELDS = [
-  { k: "accuracy",     label: "Accuracy",     hint: "How will accuracy be checked at point of release â and by whom?",
+  { k: "accuracy",     label: "Accuracy",     hint: "How will accuracy be checked at point of release — and by whom?",
     placeholder: "Daily sample audit: 50 tickets reviewed by senior agent, scored against ground-truth resolution; weekly variance report to AI Committee." },
   { k: "completeness", label: "Completeness", hint: "What is the AI likely to leave out, and how is that surfaced?",
     placeholder: "Multi-issue tickets: AI flags any ticket with >1 distinct intent; escalation default. Weekly review of tickets where customer reopened within 7 days." },
@@ -741,7 +741,7 @@ const ACRE_FIELDS = [
 
 const StepACRE = ({ data, update }) => (
   <section className="fade-up">
-    <SectionHeading eyebrow="05 â ACRE Â· Output Assurance"
+    <SectionHeading eyebrow="05 — ACRE · Output Assurance"
       title="What makes the AI output worth releasing into the operating model?"
       lede="Accuracy, Completeness, Relevance, Equity. Equity is not an add-on; it is the difference between Sovereign AI and a procurement liability." />
     <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -768,9 +768,9 @@ const StepACRE = ({ data, update }) => (
 
 const StepCALFSECAS = ({ data, updateCalf, updateSecas }) => (
   <section className="fade-up">
-    <SectionHeading eyebrow="06 â CALF / SECAS Â· Readiness Diagnostic"
+    <SectionHeading eyebrow="06 — CALF / SECAS · Readiness Diagnostic"
       title="The institutional foundation under the initiative."
-      lede="CALF names the four foundation conditions; SECAS names the five governance commitments. Rate honestly. The diagnostic identifies the binding constraint â the one or two conditions weakest right now â so the next investment can be targeted." />
+      lede="CALF names the four foundation conditions; SECAS names the five governance commitments. Rate honestly. The diagnostic identifies the binding constraint — the one or two conditions weakest right now — so the next investment can be targeted." />
 
     <div className="mt-8 p-5 rounded-md" style={{ backgroundColor: "var(--paper)", border: "2px solid var(--turquoise)" }}>
       <div className="flex items-baseline gap-3 mb-2">
@@ -784,7 +784,7 @@ const StepCALFSECAS = ({ data, updateCalf, updateSecas }) => (
         {CALF_FIELDS.map(f => (
           <div key={f.k}>
             <p className="font-display" style={{ fontSize: "17px", fontVariationSettings: '"opsz" 14, "wght" 600' }}>
-              <span style={{ color: "var(--coral)" }}>{f.label[0]}</span> â {f.label}
+              <span style={{ color: "var(--coral)" }}>{f.label[0]}</span> — {f.label}
             </p>
             <p className="font-body mb-3" style={{ fontSize: "13.5px", color: "var(--ink-2)", lineHeight: 1.5 }}>{f.hint}</p>
             <ScaleInput value={data.calf[f.k]} onChange={(v) => updateCalf(f.k, v)} ariaLabel={f.label} />
@@ -805,7 +805,7 @@ const StepCALFSECAS = ({ data, updateCalf, updateSecas }) => (
         {SECAS_FIELDS.map(f => (
           <div key={f.k}>
             <p className="font-display" style={{ fontSize: "17px", fontVariationSettings: '"opsz" 14, "wght" 600' }}>
-              <span style={{ color: "var(--coral)" }}>{f.label[0]}</span> â {f.label}
+              <span style={{ color: "var(--coral)" }}>{f.label[0]}</span> — {f.label}
             </p>
             <p className="font-body mb-3" style={{ fontSize: "13.5px", color: "var(--ink-2)", lineHeight: 1.5 }}>{f.hint}</p>
             <ScaleInput value={data.secas[f.k]} onChange={(v) => updateSecas(f.k, v)} ariaLabel={f.label} />
@@ -818,7 +818,7 @@ const StepCALFSECAS = ({ data, updateCalf, updateSecas }) => (
 
 const StepWheel = ({ data, update }) => (
   <section className="fade-up">
-    <SectionHeading eyebrow="07 â The Jowallah Governance Wheel"
+    <SectionHeading eyebrow="07 — The Jowallah Governance Wheel"
       title="Eight policy domains, rotated at least annually."
       lede="The Wheel is the institutional architecture for Sovereign AI. Rate where the organisation stands today on each domain. The Wheel rotates because AI tools, vendors, and risks change faster than annual policy cycles." />
     <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -864,7 +864,7 @@ const ScoreDial = ({ score, color }) => {
 function buildBoardBrief(d, diag) {
   const posture = STRATEGIC_OPTIONS.find(o => o.id === d.strategy.posture)?.label || "[unspecified]";
   const lines = [];
-  lines.push(`EXECUTIVE AI READINESS â BOARD BRIEF`);
+  lines.push(`EXECUTIVE AI READINESS — BOARD BRIEF`);
   lines.push(`Generated ${new Date().toLocaleDateString()}`);
   lines.push(``);
   lines.push(`ORGANISATION:    ${d.setup.org || "[unspecified]"}`);
@@ -878,29 +878,29 @@ function buildBoardBrief(d, diag) {
   lines.push(`STRATEGIC POSTURE`);
   lines.push(`  Path:        ${posture}`);
   lines.push(`  P&L target:  ${d.strategy.pAndLTarget || "[unspecified]"}`);
-  lines.push(`  Sovereignty: data ${d.strategy.soverData}/5  Â·  decisions ${d.strategy.soverDecisions}/5  Â·  values ${d.strategy.soverValues}/5`);
+  lines.push(`  Sovereignty: data ${d.strategy.soverData}/5  ·  decisions ${d.strategy.soverDecisions}/5  ·  values ${d.strategy.soverValues}/5`);
   lines.push(``);
-  lines.push(`CARE â STRATEGIC DECISION`);
+  lines.push(`CARE — STRATEGIC DECISION`);
   ["consider","analyse","reflect","evaluate"].forEach(k => { if (d.care[k]) lines.push(`  ${k[0].toUpperCase()+k.slice(1)}: ${d.care[k]}`); });
   lines.push(``);
-  lines.push(`CRAFT â AI ARCHITECTURE`);
+  lines.push(`CRAFT — AI ARCHITECTURE`);
   ["context","role","action","format","threshold"].forEach(k => { if (d.craft[k]) lines.push(`  ${k[0].toUpperCase()+k.slice(1)}: ${d.craft[k]}`); });
   lines.push(``);
-  lines.push(`ACRE â OUTPUT ASSURANCE`);
+  lines.push(`ACRE — OUTPUT ASSURANCE`);
   ["accuracy","completeness","relevance","equity"].forEach(k => { if (d.acre[k]) lines.push(`  ${k[0].toUpperCase()+k.slice(1)}: ${d.acre[k]}`); });
   lines.push(``);
-  lines.push(`CALF / SECAS â READINESS`);
+  lines.push(`CALF / SECAS — READINESS`);
   CALF_FIELDS.forEach(f => lines.push(`  ${f.label.padEnd(14)} ${d.calf[f.k]}/5`));
   SECAS_FIELDS.forEach(f => lines.push(`  ${f.label.padEnd(14)} ${d.secas[f.k]}/5`));
   lines.push(``);
   lines.push(`GOVERNANCE WHEEL`);
   WHEEL_DOMAINS.forEach(w => lines.push(`  ${w.label.padEnd(28)} ${d.wheel[w.k]}/5`));
   lines.push(``);
-  lines.push(`EXECUTIVE AI READINESS: ${diag.score}/100 â ${diag.verdict}`);
+  lines.push(`EXECUTIVE AI READINESS: ${diag.score}/100 — ${diag.verdict}`);
   lines.push(``);
   if (diag.strengths.length) {
     lines.push(`HOLDING FIRM`);
-    diag.strengths.forEach(s => lines.push(`  Â· ${s}`));
+    diag.strengths.forEach(s => lines.push(`  · ${s}`));
     lines.push(``);
   }
   if (diag.flags.length) {
@@ -908,25 +908,25 @@ function buildBoardBrief(d, diag) {
     diag.flags.forEach(f => lines.push(`  [${f.level === "hard" ? "CRITICAL" : "SOFT"}] ${f.text}`));
     lines.push(``);
   }
-  lines.push(`90-DAY ROADMAP â SUGGESTED PRIORITIES`);
+  lines.push(`90-DAY ROADMAP — SUGGESTED PRIORITIES`);
   // Generate roadmap based on weakest dimensions
   const priorities = [];
-  if (!d.strategy.pAndLTarget || wordCount(d.strategy.pAndLTarget) < 4) priorities.push("Days 0â14: Name the measurable P&L target. Without it, the initiative cannot enter board governance.");
-  if (diag.dimensions.calfSum <= 12) priorities.push("Days 0â30: Address CALF foundation â capacity, adoption, literacy, fluency. Pick the one or two weakest.");
-  if (d.secas.accountability <= 2) priorities.push("Days 14â30: Name accountable individuals at every level. Publish RACI in board pack.");
-  if (d.secas.ethics <= 2) priorities.push("Days 14â45: Draft ethics framework (equity, privacy, accountability). Tabled at Risk Committee.");
-  if (diag.dimensions.wheelWeak >= 3) priorities.push("Days 30â60: Strengthen the weakest Governance Wheel domains â they will become incidents otherwise.");
-  if (diag.dimensions.acre < 3) priorities.push("Days 30â60: Operationalise ACRE in the workflow. Embed audit, not just policy.");
-  if (priorities.length === 0) priorities.push("Days 0â30: Maintain current discipline. Quarterly Wheel review. Re-run this diagnostic in 90 days.");
-  priorities.push("Days 60â90: Re-run the Executive AI Readiness Diagnostic with the executive team. Expect a 10-point improvement.");
+  if (!d.strategy.pAndLTarget || wordCount(d.strategy.pAndLTarget) < 4) priorities.push("Days 0–14: Name the measurable P&L target. Without it, the initiative cannot enter board governance.");
+  if (diag.dimensions.calfSum <= 12) priorities.push("Days 0–30: Address CALF foundation — capacity, adoption, literacy, fluency. Pick the one or two weakest.");
+  if (d.secas.accountability <= 2) priorities.push("Days 14–30: Name accountable individuals at every level. Publish RACI in board pack.");
+  if (d.secas.ethics <= 2) priorities.push("Days 14–45: Draft ethics framework (equity, privacy, accountability). Tabled at Risk Committee.");
+  if (diag.dimensions.wheelWeak >= 3) priorities.push("Days 30–60: Strengthen the weakest Governance Wheel domains — they will become incidents otherwise.");
+  if (diag.dimensions.acre < 3) priorities.push("Days 30–60: Operationalise ACRE in the workflow. Embed audit, not just policy.");
+  if (priorities.length === 0) priorities.push("Days 0–30: Maintain current discipline. Quarterly Wheel review. Re-run this diagnostic in 90 days.");
+  priorities.push("Days 60–90: Re-run the Executive AI Readiness Diagnostic with the executive team. Expect a 10-point improvement.");
   priorities.forEach((p, i) => lines.push(`  ${i+1}. ${p}`));
   lines.push(``);
   lines.push(`Diagnostic grounded in the CARE, CRAFT, ACRE, CALF/SECAS, and`);
-  lines.push(`Jowallah Governance Wheel frameworks (Â© Dr. Rohan Jowallah, 2026).`);
+  lines.push(`Jowallah Governance Wheel frameworks (© Dr. Rohan Jowallah, 2026).`);
   lines.push(`Anchored in the MIT NANDA "GenAI Divide" research and the NIST AI RMF.`);
   lines.push(``);
-  lines.push(`â The Executive AI Readiness Diagnostic`);
-  lines.push(`  by Dr. Rohan Jowallah Â· AAC&U Faculty AI Institute Fellow`);
+  lines.push(`— The Executive AI Readiness Diagnostic`);
+  lines.push(`  by Dr. Rohan Jowallah · AAC&U Faculty AI Institute Fellow`);
   return lines.join("\n");
 }
 
@@ -941,7 +941,7 @@ const StepDiagnostic = ({ data, diagnostic, onReset }) => {
 
   return (
     <section className="fade-up">
-      <SectionHeading eyebrow="08 â Diagnostic & 90-Day Roadmap"
+      <SectionHeading eyebrow="08 — Diagnostic & 90-Day Roadmap"
         title="Where you sit on the GenAI Divide."
         lede="Scored against the patterns that distinguish the 5% extracting material value from the 95% running pilots that go nowhere." />
 
@@ -958,7 +958,7 @@ const StepDiagnostic = ({ data, diagnostic, onReset }) => {
           <p className="font-body mt-4" style={{ fontSize: "16.5px", color: "var(--ink)", lineHeight: 1.6 }}>
             {score >= 80 ? "This initiative is governed with the discipline that distinguishes the Sovereign 5% from the GenAI Divide. The board pack writes itself. Hold the line, and re-test in 90 days."
             : score >= 60 ? "The strategic frame and the architecture are sound, but soft spots exist where the initiative could quietly drift toward the 95%. Address the flags below before the next board cycle."
-            : score >= 40 ? "Without intervention, this initiative will join the 95% of pilots producing no measurable P&L impact. The diagnostic identifies the binding constraints â start there."
+            : score >= 40 ? "Without intervention, this initiative will join the 95% of pilots producing no measurable P&L impact. The diagnostic identifies the binding constraints — start there."
             : "As designed, this initiative sits inside the GenAI Divide. The technology is not the problem. The frame, the architecture, and the readiness conditions all need attention before any further spend."}
           </p>
         </div>
@@ -1011,7 +1011,7 @@ const StepDiagnostic = ({ data, diagnostic, onReset }) => {
 
       <div className="mt-10">
         <span className="font-mono-soft" style={{ fontSize: "12px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ink-2)", fontWeight: 700 }}>
-          Board Brief â composed
+          Board Brief — composed
         </span>
         <h3 className="font-display mt-3" style={{ fontSize: "clamp(26px, 4vw, 36px)", color: "var(--ink)", fontVariationSettings: '"opsz" 144, "wght" 600' }}>
           {data.setup.org || "Untitled Organisation"}
@@ -1145,7 +1145,7 @@ function ExecutiveAIReadinessDiagnostic() {
               N
             </span>
             inety-five per cent of enterprise AI pilots produce no measurable P&L impact. The
-            failure is rarely technical â it is in the strategic frame, the architecture, the
+            failure is rarely technical — it is in the strategic frame, the architecture, the
             output assurance, the readiness conditions, and the governance. This diagnostic
             walks you through eight executive decisions, scored against the integrated
             framework that distinguishes the Sovereign 5% from the GenAI Divide.
@@ -1202,7 +1202,7 @@ function ExecutiveAIReadinessDiagnostic() {
             <div>
               <span className="font-mono-soft block mb-2" style={{ fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--coral)", fontWeight: 700 }}>Frameworks</span>
               <p className="font-body" style={{ fontSize: "14px", color: "var(--ink)", lineHeight: 1.55 }}>
-                CARE Â· CRAFT Â· ACRE Â· CALF/SECAS Â· the Jowallah Governance Wheel.
+                CARE · CRAFT · ACRE · CALF/SECAS · the Jowallah Governance Wheel.
                 Anchored in MIT NANDA's GenAI Divide research, the NIST AI Risk Management
                 Framework, McKinsey 7S, Kotter, and Yale SOM.
               </p>
@@ -1210,8 +1210,8 @@ function ExecutiveAIReadinessDiagnostic() {
             <div>
               <span className="font-mono-soft block mb-2" style={{ fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--palm-deep)", fontWeight: 700 }}>Conviction</span>
               <p className="font-body italic" style={{ fontSize: "14px", color: "var(--ink)", lineHeight: 1.55 }}>
-                Sovereign AI is not anti-vendor. It is the discipline of choosing the terms on
-                which external tools enter the operating model â and refusing the ones that
+                Sovereign AI is not anti-vendor. It is the discipline of choosing terms on
+                which external tools enter the operating model — and refusing the ones that
                 do not protect data, decisions, and values.
               </p>
             </div>
@@ -1219,15 +1219,15 @@ function ExecutiveAIReadinessDiagnostic() {
 
           <div className="mt-10 pt-6 flex flex-wrap items-center justify-between gap-3" style={{ borderTop: "1px solid var(--rule-soft)" }}>
             <span className="font-mono-soft" style={{ fontSize: "11.5px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ink-2)", fontWeight: 700 }}>
-              By <span style={{ color: "var(--sea-deep)" }}>Dr. Rohan Jowallah</span> Â· Workshop Edition Â· 2026
+              By <span style={{ color: "var(--sea-deep)" }}>Dr. Rohan Jowallah</span> · Workshop Edition · 2026
             </span>
             <span className="font-mono-soft" style={{ fontSize: "11px", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--ink-2)" }}>
-              Caribbean palette Â· WCAG AA+ Â· Keyboard-first
+              Caribbean palette · WCAG AA+ · Keyboard-first
             </span>
           </div>
           <p className="font-body mt-4" style={{ fontSize: "12px", color: "var(--ink-2)", lineHeight: 1.5, maxWidth: "720px" }}>
             CARE, CRAFT, ACRE, CALF/SECAS, and the Jowallah Governance Wheel are the intellectual
-            property of Dr. Rohan Jowallah. Â© 2026. All rights reserved.
+            property of Dr. Rohan Jowallah. © 2026. All rights reserved.
           </p>
         </footer>
       </div>
