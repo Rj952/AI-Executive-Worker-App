@@ -1,0 +1,1242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#003B5C" />
+<meta name="description" content="The Executive AI Readiness Diagnostic â based on Dr. Rohan Jowallah's AI for the Executive Worker workshop. CARE, CRAFT, ACRE, CALF/SECAS, and the Jowallah Governance Wheel. Caribbean-themed, accessible." />
+<meta name="author" content="Dr. Rohan Jowallah" />
+<title>The Executive AI Readiness Diagnostic â Dr. Rohan Jowallah</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+  rel="stylesheet"
+/>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+
+<style>
+:root {
+  --sea-deep:  #003B5C;
+  --sea:       #005F87;
+  --turquoise: #00A8B5;
+  --palm:      #02753F;
+  --palm-deep: #014D29;
+  --sunshine:  #FFB700;
+  --sunshine-warm: #C56E08;
+  --coral:     #C8102E;
+  --coral-deep:#8B0A1F;
+  --hibiscus:  #B0185E;
+  --ink:       #0A0E1A;
+  --ink-2:     #2C3E50;
+  --sand:      #FFF8E7;
+  --surface:   #F5FBFC;
+  --paper:     #FFFFFF;
+  --rule:      #1F2937;
+  --rule-soft: #94A3B8;
+  --focus:     #FFB700;
+}
+
+html, body, #root { background-color: var(--surface); }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.font-display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; }
+.font-body { font-family: 'Inter', system-ui, sans-serif; }
+.font-mono-soft { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+.caribbean-paper {
+  background-color: var(--surface);
+  background-image:
+    radial-gradient(1200px 280px at 80% -150px, rgba(0,168,181,0.18), transparent 60%),
+    radial-gradient(900px 240px at 10% -120px, rgba(0,95,135,0.18), transparent 60%),
+    radial-gradient(600px 600px at 95% 100%, rgba(255,183,0,0.08), transparent 60%);
+}
+
+.field-input {
+  background-color: var(--paper);
+  border: 2px solid var(--rule);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  border-radius: 6px;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.field-input::placeholder { color: #6B7280; opacity: 1; }
+.field-input:hover { border-color: var(--sea-deep); }
+.field-input:focus-visible {
+  outline: none;
+  border-color: var(--sea-deep);
+  box-shadow: 0 0 0 4px var(--focus);
+}
+
+.btn-primary {
+  background-color: var(--sea-deep);
+  color: #FFFFFF;
+  border: 2px solid var(--sea-deep);
+  font-weight: 600;
+  border-radius: 6px;
+  transition: background-color 150ms ease, transform 80ms ease, box-shadow 150ms ease;
+}
+.btn-primary:hover { background-color: var(--palm-deep); border-color: var(--palm-deep); }
+.btn-primary:active { transform: translateY(1px); }
+.btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--focus); }
+.btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.btn-ghost {
+  background-color: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--rule);
+  font-weight: 600;
+  border-radius: 6px;
+  transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease;
+}
+.btn-ghost:hover { border-color: var(--sea-deep); color: var(--sea-deep); background-color: var(--sand); }
+.btn-ghost:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--focus); border-color: var(--sea-deep); }
+
+.scale-radio {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 38px; height: 38px;
+  border: 2px solid var(--rule);
+  border-radius: 8px;
+  background: var(--paper);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 150ms ease;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+}
+.scale-radio:hover { border-color: var(--sea-deep); }
+.scale-radio:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--focus); }
+.scale-radio[data-selected="true"] {
+  background: var(--sea-deep);
+  border-color: var(--sea-deep);
+  color: #fff;
+}
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border: 2px solid var(--rule);
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background-color: var(--paper);
+}
+
+.divider-rule {
+  height: 3px;
+  background: linear-gradient(to right, var(--sea-deep) 0%, var(--turquoise) 33%, var(--sunshine) 66%, var(--coral) 100%);
+  border-radius: 2px;
+}
+
+.score-arc { transition: stroke-dashoffset 700ms cubic-bezier(.2,.8,.2,1); }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.fade-up { animation: fadeUp 380ms cubic-bezier(.2,.8,.2,1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .fade-up { animation: none; }
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  background: var(--ink);
+  color: #FFFFFF;
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-weight: 700;
+  z-index: 100;
+  border: 3px solid var(--sunshine);
+}
+.skip-link:focus { top: 1rem; outline: none; }
+
+.option-card { transition: transform 150ms ease, border-color 150ms ease, background-color 150ms ease; }
+.option-card:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--focus); }
+.option-card:hover { transform: translateY(-1px); }
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; }
+  .caribbean-paper { background: #fff; }
+  pre { white-space: pre-wrap; word-wrap: break-word; }
+}
+
+@media (prefers-contrast: more) {
+  .field-input { border-width: 3px; }
+  .btn-ghost { border-width: 3px; }
+  .btn-primary { border-width: 3px; }
+}
+</style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="root" role="application" aria-label="Executive AI Readiness Diagnostic"></div>
+
+  <script type="text/babel" data-presets="react">
+const { useState, useMemo, useEffect, useRef } = React;
+
+/* ==================================================================
+   Inline SVG icon set
+   ================================================================== */
+const ICON_PATHS = {
+  ChevronRight: <polyline points="9 18 15 12 9 6" />,
+  ChevronLeft:  <polyline points="15 18 9 12 15 6" />,
+  Briefcase: <g><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></g>,
+  Compass: <g><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></g>,
+  Target: <g><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></g>,
+  Layers: <g><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></g>,
+  Eye: <g><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></g>,
+  ShieldCheck: <g><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></g>,
+  Settings: <g><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></g>,
+  FileText: <g><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></g>,
+  AlertTriangle: <g><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></g>,
+  CheckCircle2: <g><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g>,
+  Circle: <circle cx="12" cy="12" r="10"/>,
+  Printer: <g><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></g>,
+  Copy: <g><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></g>,
+  RotateCcw: <g><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></g>,
+  TrendingUp: <g><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></g>,
+};
+
+function Icon({ name, size = 18, strokeWidth = 2, style, className, title }) {
+  const path = ICON_PATHS[name] || ICON_PATHS.Circle;
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size} height={size}
+      viewBox="0 0 24 24"
+      fill="none" stroke="currentColor"
+      strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round"
+      className={className}
+      style={{ display: "inline-block", verticalAlign: "middle", ...style }}
+      role={title ? "img" : undefined}
+      aria-hidden={title ? undefined : "true"}
+      aria-label={title}
+      focusable="false"
+    >
+      {title && <title>{title}</title>}
+      {path}
+    </svg>
+  );
+}
+
+/* ==================================================================
+   Static framework definitions (from the workshop book)
+   ================================================================== */
+const STRATEGIC_OPTIONS = [
+  { id: "buy",     label: "Buy",     blurb: "Purchase a vendor capability and integrate. MIT NANDA evidence: buying outperforms building." },
+  { id: "partner", label: "Partner", blurb: "Co-develop with a vendor or specialist. Suits regulated/sensitive workflows where pure SaaS is insufficient." },
+  { id: "build",   label: "Build",   blurb: "Internal engineering of a custom AI capability. The slowest, most expensive path; reserve for genuine moats." },
+];
+
+const CALF_FIELDS = [
+  { k: "capacity",  label: "Capacity",  hint: "Sufficient infrastructure, time, and budget to adopt AI without rushing." },
+  { k: "adoption",  label: "Adoption",  hint: "A defined adoption plan: each tool paired with use-case, owner, and sunset condition." },
+  { k: "literacy",  label: "Literacy",  hint: "Baseline AI literacy across the workforce, calibrated to role." },
+  { k: "fluency",   label: "Fluency",   hint: "Confident, judgement-bearing AI use among those leading adoption." },
+];
+
+const SECAS_FIELDS = [
+  { k: "strategy",        label: "Strategy",        hint: "AI named in the strategic plan with measurable outcomes." },
+  { k: "ethics",          label: "Ethics",          hint: "Explicit ethics framework â equity, privacy, accountability â governs AI use." },
+  { k: "capability",      label: "Capability",      hint: "Continuing investment in workforce capability, treated as recurrent â not one-off." },
+  { k: "accountability",  label: "Accountability",  hint: "Named individuals accountable for AI outcomes at every level." },
+  { k: "sustainability",  label: "Sustainability",  hint: "AI deployment is environmentally, financially, and culturally sustainable long-term." },
+];
+
+const WHEEL_DOMAINS = [
+  { k: "strategy",      label: "Strategy alignment",        hint: "The connection between AI use and the organisation's mission. The test any new AI tool must pass." },
+  { k: "data",          label: "Data governance",           hint: "Rules under which data is collected, stored, processed, transferred, deleted; residency; cross-border transfer." },
+  { k: "procurement",   label: "Procurement & vendor",      hint: "Standards a vendor must meet; contractual protections; conditions for ending the relationship." },
+  { k: "workforce",     label: "Workforce capability",      hint: "Literacy, fluency, and sovereignty competencies required by role; training infrastructure." },
+  { k: "output",        label: "Output assurance",          hint: "Application of frameworks like ACRE before release, embedded in workflow." },
+  { k: "equity",        label: "Equity & inclusion",        hint: "Explicit commitment that AI deployment will not entrench, and where possible reduce, existing inequities." },
+  { k: "risk",          label: "Risk & incident response",  hint: "Protocols for identifying, escalating, and responding to AI-related incidents." },
+  { k: "public",        label: "Public accountability",     hint: "Public-facing commitments, named owners, and channels by which stakeholders can raise concerns." },
+];
+
+const STEPS = [
+  { id: 0, title: "Setup",       icon: "Briefcase" },
+  { id: 1, title: "Strategy",    icon: "Compass" },
+  { id: 2, title: "CARE",        icon: "Target" },
+  { id: 3, title: "CRAFT",       icon: "Layers" },
+  { id: 4, title: "ACRE",        icon: "Eye" },
+  { id: 5, title: "CALF/SECAS",  icon: "Settings" },
+  { id: 6, title: "Governance",  icon: "ShieldCheck" },
+  { id: 7, title: "Diagnostic",  icon: "FileText" },
+];
+
+const initialData = () => ({
+  setup: {
+    org: "", sector: "", size: "", role: "", initiative: "",
+    maturity: "", spend: ""
+  },
+  strategy: {
+    posture: "", soverData: 3, soverDecisions: 3, soverValues: 3,
+    pAndLTarget: ""
+  },
+  care: {
+    consider: "", analyse: "", reflect: "", evaluate: ""
+  },
+  craft: {
+    context: "", role: "", action: "", format: "", threshold: ""
+  },
+  acre: {
+    accuracy: "", completeness: "", relevance: "", equity: ""
+  },
+  calf: { capacity: 3, adoption: 3, literacy: 3, fluency: 3 },
+  secas: { strategy: 3, ethics: 3, capability: 3, accountability: 3, sustainability: 3 },
+  wheel: {
+    strategy: 3, data: 3, procurement: 3, workforce: 3,
+    output: 3, equity: 3, risk: 3, public: 3
+  }
+});
+
+/* ==================================================================
+   Diagnostic logic
+   ================================================================== */
+function wordCount(s) { if (!s) return 0; return s.trim().split(/\s+/).filter(Boolean).length; }
+
+function computeDiagnostic(d) {
+  const flags = [];
+  const strengths = [];
+  let score = 0;
+
+  // Setup completeness (max 5)
+  const setupFilled = Object.values(d.setup).filter(v => v && String(v).trim()).length;
+  score += Math.min(5, setupFilled * 0.7);
+
+  // Strategic frame (max 12)
+  if (d.strategy.posture) {
+    score += 3;
+    if (d.strategy.posture === "buy") strengths.push("Strategic posture is Buy â aligned with MIT NANDA's evidence that purchased AI outperforms in-house builds.");
+    if (d.strategy.posture === "build") flags.push({ level: "soft", text: "Build is the path of last resort. MIT NANDA found purchased solutions outperform in-house builds 2:1 on measurable P&L impact. Defend the build decision against a defensible buy alternative." });
+  } else {
+    flags.push({ level: "hard", text: "No Buy/Partner/Build posture chosen. The first executive call on any AI capability is which path; not making it explicitly is the most common failure mode in the GenAI Divide." });
+  }
+  const sov = (d.strategy.soverData + d.strategy.soverDecisions + d.strategy.soverValues);
+  score += Math.round(sov / 15 * 6); // 6 points for sovereignty (3-15 â 1-6)
+  if (sov >= 12) strengths.push("Sovereign AI principles (data, decisions, values) are deliberately addressed.");
+  if (sov < 7) flags.push({ level: "hard", text: "Sovereign AI principles are weak across data, decisions, and values. AI deployed without sovereignty becomes a procurement liability." });
+  if (d.strategy.pAndLTarget && wordCount(d.strategy.pAndLTarget) >= 4) {
+    score += 3;
+    strengths.push("A measurable P&L target is named â distinguishes you from the 95% of pilots without one.");
+  } else {
+    flags.push({ level: "hard", text: "No measurable P&L target. MIT NANDA's 95% failure rate is overwhelmingly pilots that never named the financial outcome they were chasing." });
+  }
+
+  // CARE (max 12)
+  const careKeys = ["consider","analyse","reflect","evaluate"];
+  let careFilled = 0;
+  careKeys.forEach(k => { if (d.care[k] && wordCount(d.care[k]) >= 4) careFilled += 1; });
+  score += careFilled * 3;
+  if (careFilled === 4) strengths.push("CARE strategic decision frame is fully completed.");
+  if (!d.care.evaluate || wordCount(d.care.evaluate) < 4) {
+    flags.push({ level: "hard", text: "CARE Evaluate phase is missing. Without explicit success and kill criteria, the initiative cannot be governed." });
+  }
+
+  // CRAFT (max 12)
+  const craftKeys = ["context","role","action","format","threshold"];
+  let craftFilled = 0;
+  craftKeys.forEach(k => { if (d.craft[k] && wordCount(d.craft[k]) >= 4) craftFilled += 1; });
+  score += craftFilled * 2.4;
+  if (craftFilled === 5) strengths.push("CRAFT prompt architecture is fully specified â minimises hallucination and scope drift.");
+  if (d.craft.threshold && /pedagog|learn|board|risk|evidence|justif|equit|p&l|measurable/i.test(d.craft.threshold)) {
+    strengths.push("CRAFT threshold names what 'good enough' means â not just task completion.");
+  }
+
+  // ACRE (max 12)
+  const acreKeys = ["accuracy","completeness","relevance","equity"];
+  let acreFilled = 0;
+  acreKeys.forEach(k => { if (d.acre[k] && wordCount(d.acre[k]) >= 4) acreFilled += 1; });
+  score += acreFilled * 3;
+  if (acreFilled === 4) strengths.push("ACRE output assurance dimensions are all addressed.");
+  if (!d.acre.equity || wordCount(d.acre.equity) < 4) {
+    flags.push({ level: "hard", text: "ACRE Equity is unaddressed. AI without equity governance is a regulatory and reputational liability â and a strategic abdication." });
+  }
+
+  // CALF (max 12)
+  const calfSum = d.calf.capacity + d.calf.adoption + d.calf.literacy + d.calf.fluency; // 4-20
+  score += Math.round(((calfSum - 4) / 16) * 12);
+  if (calfSum >= 16) strengths.push("CALF readiness conditions (capacity, adoption, literacy, fluency) are strong.");
+  if (calfSum <= 8) flags.push({ level: "hard", text: "CALF readiness is weak â at least one of capacity, adoption, literacy, or fluency is critically underdeveloped. AI adoption will be performative, not sovereign." });
+
+  // SECAS (max 13)
+  const secasSum = d.secas.strategy + d.secas.ethics + d.secas.capability + d.secas.accountability + d.secas.sustainability; // 5-25
+  score += Math.round(((secasSum - 5) / 20) * 13);
+  if (secasSum >= 20) strengths.push("SECAS governance overlay (strategy, ethics, capability, accountability, sustainability) is in place.");
+  if (d.secas.accountability <= 2) flags.push({ level: "hard", text: "Named accountability is missing. Without individuals accountable for AI outcomes at every level, governance is theatre." });
+  if (d.secas.ethics <= 2) flags.push({ level: "hard", text: "Ethics framework is weak. Equity, privacy, and accountability cannot be added later as a wrapper â they must be designed in." });
+
+  // Governance Wheel (max 22)
+  const wheelKeys = Object.keys(d.wheel);
+  const wheelSum = wheelKeys.reduce((acc, k) => acc + d.wheel[k], 0); // 8-40
+  score += Math.round(((wheelSum - 8) / 32) * 22);
+  const wheelStrong = wheelKeys.filter(k => d.wheel[k] >= 4).length;
+  const wheelWeak = wheelKeys.filter(k => d.wheel[k] <= 2);
+  if (wheelStrong >= 6) strengths.push(`Governance Wheel is strong on ${wheelStrong} of 8 domains.`);
+  if (wheelWeak.length >= 3) flags.push({ level: "hard", text: `Governance Wheel has ${wheelWeak.length} domains scoring 2 or below. The Wheel rotates â every weak domain becomes the next incident.` });
+  if (d.wheel.public <= 2) flags.push({ level: "soft", text: "Public accountability is weak. Stakeholders need named owners and a channel to raise concerns; opacity becomes a liability." });
+
+  score = Math.max(0, Math.min(100, Math.round(score)));
+
+  let verdict, verdictColor, verdictBg;
+  if (score >= 80)      { verdict = "In the Sovereign 5%";              verdictColor = "#014D29"; verdictBg = "#02753F"; }
+  else if (score >= 60) { verdict = "Aligned, but drifting";            verdictColor = "#003B5C"; verdictBg = "#005F87"; }
+  else if (score >= 40) { verdict = "At Risk of Joining the 95%";       verdictColor = "#9A4A00"; verdictBg = "#C56E08"; }
+  else                  { verdict = "On the Wrong Side of the Divide";  verdictColor = "#8B0A1F"; verdictBg = "#C8102E"; }
+
+  return { score, verdict, verdictColor, verdictBg, flags, strengths,
+           dimensions: {
+             setup: setupFilled, sovereignty: sov, care: careFilled, craft: craftFilled, acre: acreFilled,
+             calfSum, secasSum, wheelSum, wheelStrong, wheelWeak: wheelWeak.length
+           } };
+}
+
+/* ==================================================================
+   UI primitives
+   ================================================================== */
+const FieldLabel = ({ label, hint, required, htmlFor }) => (
+  <div className="mb-2">
+    <label htmlFor={htmlFor}
+      className="font-mono-soft block"
+      style={{ fontSize: "12px", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ink)", fontWeight: 700 }}>
+      {label}
+      {required && <span style={{ color: "var(--coral)", marginLeft: "6px" }} aria-label="required">*</span>}
+    </label>
+    {hint && (
+      <p className="font-body mt-1.5" style={{ fontSize: "14px", color: "var(--ink-2)", lineHeight: 1.5 }}>
+        {hint}
+      </p>
+    )}
+  </div>
+);
+
+let inputIdCounter = 0;
+const useId = (prefix = "f") => useMemo(() => `${prefix}-${++inputIdCounter}`, []);
+
+const TextInput = ({ value, onChange, placeholder, ariaLabel, id }) => (
+  <input id={id} type="text" value={value}
+    onChange={(e) => onChange(e.target.value)}
+    placeholder={placeholder} aria-label={ariaLabel}
+    className="field-input w-full px-4 py-3" />
+);
+
+const TextArea = ({ value, onChange, placeholder, rows = 3, ariaLabel, id }) => (
+  <textarea id={id} value={value}
+    onChange={(e) => onChange(e.target.value)}
+    placeholder={placeholder} rows={rows} aria-label={ariaLabel}
+    className="field-input w-full px-4 py-3 resize-y" />
+);
+
+const ScaleInput = ({ value, onChange, ariaLabel, leftLabel = "Absent", rightLabel = "Strong" }) => {
+  const opts = [1,2,3,4,5];
+  return (
+    <div role="radiogroup" aria-label={ariaLabel}>
+      <div className="flex items-center gap-2 flex-wrap">
+        {opts.map(n => (
+          <button key={n} type="button"
+            role="radio"
+            aria-checked={value === n}
+            data-selected={value === n}
+            onClick={() => onChange(n)}
+            className="scale-radio"
+            aria-label={`${ariaLabel} ${n} of 5`}>
+            {n}
+          </button>
+        ))}
+      </div>
+      <div className="flex justify-between mt-2 font-mono-soft" style={{ fontSize: "11px", color: "var(--ink-2)", letterSpacing: "0.1em", textTransform: "uppercase", maxWidth: 240 }}>
+        <span>1 Â· {leftLabel}</span>
+        <span>5 Â· {rightLabel}</span>
+      </div>
+    </div>
+  );
+};
+
+const SectionHeading = ({ eyebrow, title, lede }) => (
+  <header>
+    <span className="font-mono-soft block"
+      style={{ fontSize: "12px", letterSpacing: "0.18em", textTransform: "uppercase",
+               color: "var(--sea-deep)", fontWeight: 700, marginBottom: "12px" }}>
+      {eyebrow}
+    </span>
+    <h2 className="font-display"
+      style={{ fontSize: "clamp(28px, 4vw, 40px)", color: "var(--ink)",
+               fontVariationSettings: '"opsz" 144, "wght" 600',
+               letterSpacing: "-0.02em", lineHeight: 1.1, maxWidth: "720px" }}>
+      {title}
+    </h2>
+    {lede && (
+      <p className="font-body mt-4"
+        style={{ fontSize: "17px", color: "var(--ink-2)", lineHeight: 1.6, maxWidth: "720px" }}>
+        {lede}
+      </p>
+    )}
+  </header>
+);
+
+/* ==================================================================
+   Step components
+   ================================================================== */
+const StepSetup = ({ data, update }) => {
+  const idOrg = useId(), idSector = useId(), idSize = useId(), idRole = useId(),
+        idInit = useId(), idMat = useId(), idSpend = useId();
+  return (
+    <section className="fade-up">
+      <SectionHeading eyebrow="01 â The Executive Context"
+        title="Who you are, and what you are about to govern."
+        lede="The Executive AI Readiness Diagnostic is a strategic instrument, not a generic assessment. Anchor it in the actual organisation, the actual role, and the actual AI initiative on your desk this quarter." />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        <div>
+          <FieldLabel htmlFor={idOrg} label="Organisation" required />
+          <TextInput id={idOrg} value={data.org} onChange={(v) => update("org", v)}
+            placeholder="e.g., Northern Caribbean Bank" />
+        </div>
+        <div>
+          <FieldLabel htmlFor={idSector} label="Sector" />
+          <TextInput id={idSector} value={data.sector} onChange={(v) => update("sector", v)}
+            placeholder="e.g., Financial services / Higher education / Public health" />
+        </div>
+        <div>
+          <FieldLabel htmlFor={idSize} label="Size (revenue or headcount)" />
+          <TextInput id={idSize} value={data.size} onChange={(v) => update("size", v)}
+            placeholder="e.g., 2,400 staff Â· USD 480M revenue" />
+        </div>
+        <div>
+          <FieldLabel htmlFor={idRole} label="Your role" />
+          <TextInput id={idRole} value={data.role} onChange={(v) => update("role", v)}
+            placeholder="e.g., Vice President of Operations" />
+        </div>
+        <div className="md:col-span-2">
+          <FieldLabel htmlFor={idInit} label="Candidate AI initiative under your accountability"
+            hint="Name one specific AI capability or initiative â this diagnostic will hold it to the frameworks." required />
+          <TextArea id={idInit} value={data.initiative} onChange={(v) => update("initiative", v)}
+            placeholder="e.g., Deploying an AI-assisted customer-service triage system across the contact-centre estate by Q3 2026." />
+        </div>
+        <div>
+          <FieldLabel htmlFor={idMat} label="Current organisational AI maturity"
+            hint="Where is the broader organisation today?" />
+          <select id={idMat} value={data.maturity}
+            onChange={(e) => update("maturity", e.target.value)}
+            className="field-input w-full px-4 py-3">
+            <option value="">â Select â</option>
+            <option value="exploring">Exploring (no production AI in use)</option>
+            <option value="piloting">Piloting (1â3 production pilots)</option>
+            <option value="scaling">Scaling (multiple deployments, governance in place)</option>
+            <option value="mature">Mature (AI integrated into operating model, measured impact)</option>
+          </select>
+        </div>
+        <div>
+          <FieldLabel htmlFor={idSpend} label="Annual AI spend (approximate)" />
+          <TextInput id={idSpend} value={data.spend} onChange={(v) => update("spend", v)}
+            placeholder="e.g., USD 1.2M / no formal budget" />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const StepStrategy = ({ data, update }) => {
+  const idPL = useId();
+  return (
+    <section className="fade-up">
+      <SectionHeading eyebrow="02 â Strategic Frame"
+        title="Buy, Partner, or Build â and on what sovereignty terms?"
+        lede="MIT NANDA's GenAI Divide research found purchased AI outperforms in-house builds. The first executive call is which path. The second is whether the procurement protects sovereignty over data, decisions, and values." />
+
+      <div className="mt-8">
+        <FieldLabel label="Strategic posture for this initiative" required
+          hint="Pick the path you intend to take. The diagnostic will test whether your governance is consistent with the choice." />
+        <div className="space-y-3 mt-3" role="radiogroup" aria-label="Buy, Partner, or Build">
+          {STRATEGIC_OPTIONS.map(opt => {
+            const selected = data.posture === opt.id;
+            return (
+              <button key={opt.id} type="button"
+                role="radio" aria-checked={selected}
+                onClick={() => update("posture", opt.id)}
+                className="option-card w-full text-left p-5 rounded-md"
+                style={{
+                  backgroundColor: selected ? "var(--sea-deep)" : "var(--paper)",
+                  border: `2px solid ${selected ? "var(--sea-deep)" : "var(--rule)"}`,
+                  color: selected ? "#FFFFFF" : "var(--ink)" }}>
+                <div className="flex items-start gap-4">
+                  <div className="mt-1">
+                    {selected
+                      ? <Icon name="CheckCircle2" size={22} style={{ color: "var(--sunshine)" }} />
+                      : <Icon name="Circle" size={22} style={{ color: "var(--rule)" }} />}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-display"
+                      style={{ fontSize: "22px", fontVariationSettings: '"opsz" 24, "wght" 600' }}>
+                      {opt.label}
+                    </h3>
+                    <p className="font-body mt-2"
+                      style={{ fontSize: "15.5px", lineHeight: 1.55, color: selected ? "#E8F1F5" : "var(--ink-2)" }}>
+                      {opt.blurb}
+                    </p>
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mt-10">
+        <FieldLabel label="Sovereign AI assessment"
+          hint="Rate the protections in place for this initiative. Sovereignty is not anti-vendor â it is the terms on which external tools are adopted." />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+          <div>
+            <p className="font-display" style={{ fontSize: "16px", fontVariationSettings: '"opsz" 14, "wght" 600', marginBottom: "8px" }}>Sovereignty over data</p>
+            <ScaleInput value={data.soverData} onChange={(v) => update("soverData", v)}
+              ariaLabel="Sovereignty over data" leftLabel="No control" rightLabel="Fully controlled" />
+          </div>
+          <div>
+            <p className="font-display" style={{ fontSize: "16px", fontVariationSettings: '"opsz" 14, "wght" 600', marginBottom: "8px" }}>Sovereignty over decisions</p>
+            <ScaleInput value={data.soverDecisions} onChange={(v) => update("soverDecisions", v)}
+              ariaLabel="Sovereignty over decisions" leftLabel="Outsourced" rightLabel="Accountable" />
+          </div>
+          <div>
+            <p className="font-display" style={{ fontSize: "16px", fontVariationSettings: '"opsz" 14, "wght" 600', marginBottom: "8px" }}>Sovereignty over values</p>
+            <ScaleInput value={data.soverValues} onChange={(v) => update("soverValues", v)}
+              ariaLabel="Sovereignty over values" leftLabel="Default to vendor" rightLabel="Explicit & defended" />
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-10">
+        <FieldLabel htmlFor={idPL} label="Measurable P&L target for this initiative" required
+          hint="Name the specific financial outcome you are chasing. 95% of pilots fail because they never named one." />
+        <TextArea id={idPL} value={data.pAndLTarget} onChange={(v) => update("pAndLTarget", v)}
+          placeholder="e.g., Reduce contact-centre cost-to-serve by 18% (USD 4.2M annualised) by Q4 2026; net of licence fees." />
+      </div>
+    </section>
+  );
+};
+
+const CARE_FIELDS = [
+  { k: "consider", label: "Consider", prompt: "What is the actual business problem, and what alternatives have you weighed?",
+    hint: "AI should not be the first move. Name the problem, then name two non-AI alternatives you considered.",
+    placeholder: "Problem: 38% of contact-centre tickets are routine FAQ-equivalent. Alternatives weighed: (a) IVR redesign, (b) outsourced overflow, (c) AI-assisted triage. AI selected becauseâ¦" },
+  { k: "analyse", label: "Analyse", prompt: "Data, process, and people implications â laid out honestly.",
+    hint: "What data does the AI need? What workflows must change? Whose work is affected, and how?",
+    placeholder: "Data: 4 years of ticket logs, redacted. Process: triage stage rebuilt; agents review AI suggestions before sending. People: 240 agents reskill from initial response to escalation handlingâ¦" },
+  { k: "reflect", label: "Reflect", prompt: "Who is affected, what is the equity and risk profile?",
+    hint: "Reflection is not a footer. Who carries the downside if this is wrong â customers, staff, vulnerable groups?",
+    placeholder: "Affected: customers in low-bandwidth regions may be disadvantaged by chat-first triage. Risk: model bias amplifies if training data over-represents urban English speakersâ¦" },
+  { k: "evaluate", label: "Evaluate", prompt: "Success criteria â and explicit kill criteria.",
+    hint: "Without a kill criterion, the initiative cannot be governed. Name the conditions under which you would stop.",
+    placeholder: "Success: â¥18% cost-to-serve reduction by Q4 2026, customer-satisfaction at parity. Kill: agent-override rate >35% sustained over two months, or any equity-flag incident at P1 severity." },
+];
+
+const StepCARE = ({ data, update }) => (
+  <section className="fade-up">
+    <SectionHeading eyebrow="03 â CARE Â· Strategic Decision Frame"
+      title="The four-phase decision discipline before you commission AI."
+      lede="CARE â Consider, Analyse, Reflect, Evaluate â is the strategic decision frame applied to a candidate AI initiative. Each phase produces a deliverable that becomes the basis of board accountability." />
+    <ol className="mt-8 space-y-7" style={{ listStyle: "none", padding: 0 }}>
+      {CARE_FIELDS.map((f, idx) => {
+        const id = `care-${f.k}`;
+        return (
+          <li key={f.k} className="pl-6" style={{ borderLeft: "4px solid var(--turquoise)" }}>
+            <div className="flex items-baseline gap-4 mb-2">
+              <span className="font-mono-soft" style={{ fontSize: "13px", color: "var(--palm-deep)", letterSpacing: "0.12em", fontWeight: 700 }}>
+                0{idx + 1}
+              </span>
+              <h3 className="font-display" style={{ fontSize: "24px", fontVariationSettings: '"opsz" 24, "wght" 600' }}>{f.label}</h3>
+            </div>
+            <p className="font-body italic mb-3" style={{ fontSize: "15.5px", color: "var(--ink-2)", lineHeight: 1.55 }}>{f.prompt}</p>
+            <p className="font-body mb-3" style={{ fontSize: "13.5px", color: "var(--ink-2)", lineHeight: 1.5 }}>{f.hint}</p>
+            <TextArea id={id} value={data[f.k]} onChange={(v) => update(f.k, v)} placeholder={f.placeholder} rows={3} />
+          </li>
+        );
+      })}
+    </ol>
+  </section>
+);
+
+const CRAFT_FIELDS = [
+  { k: "context",   label: "Context",   hint: "What does the AI need to know about the organisation, the data, and the moment?",
+    placeholder: "Mid-sized retail bank in Jamaica, 1.2M retail customers, Q3 2026, regulated by the BoJ; current contact volume 14k tickets/week." },
+  { k: "role",      label: "Role",      hint: "What role should the AI play â not the user's role; the AI's.",
+    placeholder: "A first-line triage assistant that classifies tickets, drafts responses for human review, and flags any item the agent must handle directly." },
+  { k: "action",    label: "Action",    hint: "Concretely, what is the AI being asked to do?",
+    placeholder: "Read incoming ticket, classify into one of 14 categories, draft a customer response in English or Patois, and surface relevant policy links to the agent." },
+  { k: "format",    label: "Format",    hint: "What structure should the AI's output take?",
+    placeholder: "JSON: { category, confidence, draft_response, policy_refs[], escalate_required (bool), reason_if_escalate }" },
+  { k: "threshold", label: "Threshold", hint: "What counts as 'good enough' â pedagogically, financially, ethically? Not just 'task complete'.",
+    placeholder: "Confidence â¥0.85 OR an explicit escalation. Draft response audited against ACRE before send. Equity flag triggers human review regardless of confidence." },
+];
+
+const StepCRAFT = ({ data, update }) => (
+  <section className="fade-up">
+    <SectionHeading eyebrow="04 â CRAFT Â· AI Architecture"
+      title="An AI without architecture is a vending machine."
+      lede="CRAFT â Context, Role, Action, Format, Threshold â forces deliberate prompting and capability design. The Threshold is the executive control: it names what 'good enough' means, not just 'task complete'." />
+    <div className="mt-8 space-y-6">
+      {CRAFT_FIELDS.map((f) => {
+        const id = `craft-${f.k}`;
+        return (
+          <div key={f.k}>
+            <div className="flex items-baseline gap-3">
+              <span aria-hidden="true" className="font-display"
+                style={{ fontSize: "32px", color: "var(--coral)",
+                         fontVariationSettings: '"opsz" 144, "wght" 700', lineHeight: 1 }}>
+                {f.label[0]}
+              </span>
+              <FieldLabel htmlFor={id} label={f.label} hint={f.hint} />
+            </div>
+            <TextArea id={id} value={data[f.k]} onChange={(v) => update(f.k, v)} placeholder={f.placeholder} rows={2} />
+          </div>
+        );
+      })}
+    </div>
+  </section>
+);
+
+const ACRE_FIELDS = [
+  { k: "accuracy",     label: "Accuracy",     hint: "How will accuracy be checked at point of release â and by whom?",
+    placeholder: "Daily sample audit: 50 tickets reviewed by senior agent, scored against ground-truth resolution; weekly variance report to AI Committee." },
+  { k: "completeness", label: "Completeness", hint: "What is the AI likely to leave out, and how is that surfaced?",
+    placeholder: "Multi-issue tickets: AI flags any ticket with >1 distinct intent; escalation default. Weekly review of tickets where customer reopened within 7 days." },
+  { k: "relevance",    label: "Relevance",    hint: "How does the output connect to the local operating context?",
+    placeholder: "Outputs use Patois patterns where customer initiated in Patois; references to regional policies (BoJ, FAA) take precedence over global policy text." },
+  { k: "equity",       label: "Equity",       hint: "Who is centred, and who is missing? Equity is not optional in Sovereign AI.",
+    placeholder: "Quarterly equity audit by demographic and language; any group with resolution-time variance >15% from baseline triggers a P2 review and remediation sprint." },
+];
+
+const StepACRE = ({ data, update }) => (
+  <section className="fade-up">
+    <SectionHeading eyebrow="05 â ACRE Â· Output Assurance"
+      title="What makes the AI output worth releasing into the operating model?"
+      lede="Accuracy, Completeness, Relevance, Equity. Equity is not an add-on; it is the difference between Sovereign AI and a procurement liability." />
+    <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {ACRE_FIELDS.map((f) => {
+        const id = `acre-${f.k}`;
+        return (
+          <div key={f.k}>
+            <div className="flex items-baseline gap-3 mb-1">
+              <span aria-hidden="true" className="font-display"
+                style={{ fontSize: "36px",
+                         color: f.k === "equity" ? "var(--coral)" : "var(--palm)",
+                         fontVariationSettings: '"opsz" 144, "wght" 700', lineHeight: 1 }}>
+                {f.label[0]}
+              </span>
+              <FieldLabel htmlFor={id} label={f.label} hint={f.hint} />
+            </div>
+            <TextArea id={id} value={data[f.k]} onChange={(v) => update(f.k, v)} placeholder={f.placeholder} rows={3} />
+          </div>
+        );
+      })}
+    </div>
+  </section>
+);
+
+const StepCALFSECAS = ({ data, updateCalf, updateSecas }) => (
+  <section className="fade-up">
+    <SectionHeading eyebrow="06 â CALF / SECAS Â· Readiness Diagnostic"
+      title="The institutional foundation under the initiative."
+      lede="CALF names the four foundation conditions; SECAS names the five governance commitments. Rate honestly. The diagnostic identifies the binding constraint â the one or two conditions weakest right now â so the next investment can be targeted." />
+
+    <div className="mt-8 p-5 rounded-md" style={{ backgroundColor: "var(--paper)", border: "2px solid var(--turquoise)" }}>
+      <div className="flex items-baseline gap-3 mb-2">
+        <span className="font-display" style={{ fontSize: "30px", color: "var(--palm)", fontVariationSettings: '"opsz" 144, "wght" 700', lineHeight: 1 }}>CALF</span>
+        <p className="font-mono-soft" style={{ fontSize: "11px", letterSpacing: "0.15em", color: "var(--ink-2)", textTransform: "uppercase", fontWeight: 700 }}>The Foundation</p>
+      </div>
+      <p className="font-body mb-5" style={{ fontSize: "14px", color: "var(--ink-2)", lineHeight: 1.5 }}>
+        Four institutional readiness conditions. All four must be present for adoption to be sovereign rather than performative.
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {CALF_FIELDS.map(f => (
+          <div key={f.k}>
+            <p className="font-display" style={{ fontSize: "17px", fontVariationSettings: '"opsz" 14, "wght" 600' }}>
+              <span style={{ color: "var(--coral)" }}>{f.label[0]}</span> â {f.label}
+            </p>
+            <p className="font-body mb-3" style={{ fontSize: "13.5px", color: "var(--ink-2)", lineHeight: 1.5 }}>{f.hint}</p>
+            <ScaleInput value={data.calf[f.k]} onChange={(v) => updateCalf(f.k, v)} ariaLabel={f.label} />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div className="mt-6 p-5 rounded-md" style={{ backgroundColor: "var(--paper)", border: "2px solid var(--sunshine)" }}>
+      <div className="flex items-baseline gap-3 mb-2">
+        <span className="font-display" style={{ fontSize: "30px", color: "var(--sea-deep)", fontVariationSettings: '"opsz" 144, "wght" 700', lineHeight: 1 }}>SECAS</span>
+        <p className="font-mono-soft" style={{ fontSize: "11px", letterSpacing: "0.15em", color: "var(--ink-2)", textTransform: "uppercase", fontWeight: 700 }}>The Governance Overlay</p>
+      </div>
+      <p className="font-body mb-5" style={{ fontSize: "14px", color: "var(--ink-2)", lineHeight: 1.5 }}>
+        Five institutional commitments that turn capability into governance.
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {SECAS_FIELDS.map(f => (
+          <div key={f.k}>
+            <p className="font-display" style={{ fontSize: "17px", fontVariationSettings: '"opsz" 14, "wght" 600' }}>
+              <span style={{ color: "var(--coral)" }}>{f.label[0]}</span> â {f.label}
+            </p>
+            <p className="font-body mb-3" style={{ fontSize: "13.5px", color: "var(--ink-2)", lineHeight: 1.5 }}>{f.hint}</p>
+            <ScaleInput value={data.secas[f.k]} onChange={(v) => updateSecas(f.k, v)} ariaLabel={f.label} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const StepWheel = ({ data, update }) => (
+  <section className="fade-up">
+    <SectionHeading eyebrow="07 â The Jowallah Governance Wheel"
+      title="Eight policy domains, rotated at least annually."
+      lede="The Wheel is the institutional architecture for Sovereign AI. Rate where the organisation stands today on each domain. The Wheel rotates because AI tools, vendors, and risks change faster than annual policy cycles." />
+    <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {WHEEL_DOMAINS.map((d, idx) => (
+        <div key={d.k} className="p-4 rounded-md" style={{ backgroundColor: "var(--paper)", border: "2px solid var(--rule-soft)" }}>
+          <div className="flex items-baseline gap-3 mb-1">
+            <span className="font-mono-soft" style={{ fontSize: "11px", color: "var(--sea-deep)", fontWeight: 700, letterSpacing: "0.15em" }}>0{idx + 1}</span>
+            <p className="font-display" style={{ fontSize: "17px", fontVariationSettings: '"opsz" 14, "wght" 600' }}>{d.label}</p>
+          </div>
+          <p className="font-body mb-3" style={{ fontSize: "13.5px", color: "var(--ink-2)", lineHeight: 1.5 }}>{d.hint}</p>
+          <ScaleInput value={data[d.k]} onChange={(v) => update(d.k, v)} ariaLabel={d.label} />
+        </div>
+      ))}
+    </div>
+  </section>
+);
+
+/* ==================================================================
+   Score dial + diagnostic
+   ================================================================== */
+const ScoreDial = ({ score, color }) => {
+  const radius = 72;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (score / 100) * circumference;
+  return (
+    <div className="relative" style={{ width: 184, height: 184 }} role="img"
+         aria-label={`Executive AI Readiness score ${score} out of 100`}>
+      <svg width="184" height="184" viewBox="0 0 184 184" aria-hidden="true">
+        <circle cx="92" cy="92" r={radius} fill="none" stroke="#D1D5DB" strokeWidth="6" />
+        <circle cx="92" cy="92" r={radius} fill="none" stroke={color} strokeWidth="6"
+          strokeLinecap="round"
+          strokeDasharray={circumference} strokeDashoffset={offset}
+          transform="rotate(-90 92 92)" className="score-arc" />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="font-display" style={{ fontSize: "60px", color: "var(--ink)", fontVariationSettings: '"opsz" 144, "wght" 600', lineHeight: 1, letterSpacing: "-0.04em" }}>{score}</span>
+        <span className="font-mono-soft mt-1" style={{ fontSize: "11px", color: "var(--ink-2)", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 700 }}>/ 100</span>
+      </div>
+    </div>
+  );
+};
+
+function buildBoardBrief(d, diag) {
+  const posture = STRATEGIC_OPTIONS.find(o => o.id === d.strategy.posture)?.label || "[unspecified]";
+  const lines = [];
+  lines.push(`EXECUTIVE AI READINESS â BOARD BRIEF`);
+  lines.push(`Generated ${new Date().toLocaleDateString()}`);
+  lines.push(``);
+  lines.push(`ORGANISATION:    ${d.setup.org || "[unspecified]"}`);
+  lines.push(`SECTOR:          ${d.setup.sector || "[unspecified]"}`);
+  lines.push(`SIZE:            ${d.setup.size || "[unspecified]"}`);
+  lines.push(`PREPARED BY:     ${d.setup.role || "[unspecified]"}`);
+  lines.push(``);
+  lines.push(`INITIATIVE UNDER REVIEW`);
+  lines.push(`  ${d.setup.initiative || "[unspecified]"}`);
+  lines.push(``);
+  lines.push(`STRATEGIC POSTURE`);
+  lines.push(`  Path:        ${posture}`);
+  lines.push(`  P&L target:  ${d.strategy.pAndLTarget || "[unspecified]"}`);
+  lines.push(`  Sovereignty: data ${d.strategy.soverData}/5  Â·  decisions ${d.strategy.soverDecisions}/5  Â·  values ${d.strategy.soverValues}/5`);
+  lines.push(``);
+  lines.push(`CARE â STRATEGIC DECISION`);
+  ["consider","analyse","reflect","evaluate"].forEach(k => { if (d.care[k]) lines.push(`  ${k[0].toUpperCase()+k.slice(1)}: ${d.care[k]}`); });
+  lines.push(``);
+  lines.push(`CRAFT â AI ARCHITECTURE`);
+  ["context","role","action","format","threshold"].forEach(k => { if (d.craft[k]) lines.push(`  ${k[0].toUpperCase()+k.slice(1)}: ${d.craft[k]}`); });
+  lines.push(``);
+  lines.push(`ACRE â OUTPUT ASSURANCE`);
+  ["accuracy","completeness","relevance","equity"].forEach(k => { if (d.acre[k]) lines.push(`  ${k[0].toUpperCase()+k.slice(1)}: ${d.acre[k]}`); });
+  lines.push(``);
+  lines.push(`CALF / SECAS â READINESS`);
+  CALF_FIELDS.forEach(f => lines.push(`  ${f.label.padEnd(14)} ${d.calf[f.k]}/5`));
+  SECAS_FIELDS.forEach(f => lines.push(`  ${f.label.padEnd(14)} ${d.secas[f.k]}/5`));
+  lines.push(``);
+  lines.push(`GOVERNANCE WHEEL`);
+  WHEEL_DOMAINS.forEach(w => lines.push(`  ${w.label.padEnd(28)} ${d.wheel[w.k]}/5`));
+  lines.push(``);
+  lines.push(`EXECUTIVE AI READINESS: ${diag.score}/100 â ${diag.verdict}`);
+  lines.push(``);
+  if (diag.strengths.length) {
+    lines.push(`HOLDING FIRM`);
+    diag.strengths.forEach(s => lines.push(`  Â· ${s}`));
+    lines.push(``);
+  }
+  if (diag.flags.length) {
+    lines.push(`WHERE THE LINE SLIPS`);
+    diag.flags.forEach(f => lines.push(`  [${f.level === "hard" ? "CRITICAL" : "SOFT"}] ${f.text}`));
+    lines.push(``);
+  }
+  lines.push(`90-DAY ROADMAP â SUGGESTED PRIORITIES`);
+  // Generate roadmap based on weakest dimensions
+  const priorities = [];
+  if (!d.strategy.pAndLTarget || wordCount(d.strategy.pAndLTarget) < 4) priorities.push("Days 0â14: Name the measurable P&L target. Without it, the initiative cannot enter board governance.");
+  if (diag.dimensions.calfSum <= 12) priorities.push("Days 0â30: Address CALF foundation â capacity, adoption, literacy, fluency. Pick the one or two weakest.");
+  if (d.secas.accountability <= 2) priorities.push("Days 14â30: Name accountable individuals at every level. Publish RACI in board pack.");
+  if (d.secas.ethics <= 2) priorities.push("Days 14â45: Draft ethics framework (equity, privacy, accountability). Tabled at Risk Committee.");
+  if (diag.dimensions.wheelWeak >= 3) priorities.push("Days 30â60: Strengthen the weakest Governance Wheel domains â they will become incidents otherwise.");
+  if (diag.dimensions.acre < 3) priorities.push("Days 30â60: Operationalise ACRE in the workflow. Embed audit, not just policy.");
+  if (priorities.length === 0) priorities.push("Days 0â30: Maintain current discipline. Quarterly Wheel review. Re-run this diagnostic in 90 days.");
+  priorities.push("Days 60â90: Re-run the Executive AI Readiness Diagnostic with the executive team. Expect a 10-point improvement.");
+  priorities.forEach((p, i) => lines.push(`  ${i+1}. ${p}`));
+  lines.push(``);
+  lines.push(`Diagnostic grounded in the CARE, CRAFT, ACRE, CALF/SECAS, and`);
+  lines.push(`Jowallah Governance Wheel frameworks (Â© Dr. Rohan Jowallah, 2026).`);
+  lines.push(`Anchored in the MIT NANDA "GenAI Divide" research and the NIST AI RMF.`);
+  lines.push(``);
+  lines.push(`â The Executive AI Readiness Diagnostic`);
+  lines.push(`  by Dr. Rohan Jowallah Â· AAC&U Faculty AI Institute Fellow`);
+  return lines.join("\n");
+}
+
+const StepDiagnostic = ({ data, diagnostic, onReset }) => {
+  const { score, verdict, verdictColor, verdictBg, flags, strengths } = diagnostic;
+  const [copied, setCopied] = useState(false);
+  const briefText = useMemo(() => buildBoardBrief(data, diagnostic), [data, diagnostic]);
+
+  const copyBrief = async () => {
+    try { await navigator.clipboard.writeText(briefText); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch {}
+  };
+
+  return (
+    <section className="fade-up">
+      <SectionHeading eyebrow="08 â Diagnostic & 90-Day Roadmap"
+        title="Where you sit on the GenAI Divide."
+        lede="Scored against the patterns that distinguish the 5% extracting material value from the 95% running pilots that go nowhere." />
+
+      <div className="mt-10 p-8 rounded-md flex flex-col md:flex-row items-center md:items-start gap-8"
+        style={{ backgroundColor: "var(--paper)", border: `4px solid ${verdictBg}` }}>
+        <ScoreDial score={score} color={verdictBg} />
+        <div className="flex-1">
+          <span className="font-mono-soft" style={{ fontSize: "12px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ink-2)", fontWeight: 700 }}>
+            Executive AI Readiness Verdict
+          </span>
+          <h3 className="font-display mt-2" style={{ fontSize: "clamp(26px, 4vw, 36px)", color: verdictColor, fontVariationSettings: '"opsz" 144, "wght" 700', letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+            {verdict}
+          </h3>
+          <p className="font-body mt-4" style={{ fontSize: "16.5px", color: "var(--ink)", lineHeight: 1.6 }}>
+            {score >= 80 ? "This initiative is governed with the discipline that distinguishes the Sovereign 5% from the GenAI Divide. The board pack writes itself. Hold the line, and re-test in 90 days."
+            : score >= 60 ? "The strategic frame and the architecture are sound, but soft spots exist where the initiative could quietly drift toward the 95%. Address the flags below before the next board cycle."
+            : score >= 40 ? "Without intervention, this initiative will join the 95% of pilots producing no measurable P&L impact. The diagnostic identifies the binding constraints â start there."
+            : "As designed, this initiative sits inside the GenAI Divide. The technology is not the problem. The frame, the architecture, and the readiness conditions all need attention before any further spend."}
+          </p>
+        </div>
+      </div>
+
+      {strengths.length > 0 && (
+        <div className="mt-8" role="region" aria-label="Strengths">
+          <h4 className="font-mono-soft mb-3" style={{ fontSize: "12px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--palm-deep)", fontWeight: 700 }}>
+            Holding firm
+          </h4>
+          <ul className="space-y-2" style={{ listStyle: "none", padding: 0 }}>
+            {strengths.map((s, i) => (
+              <li key={i} className="font-body flex gap-3" style={{ fontSize: "15.5px", color: "var(--ink)", lineHeight: 1.55 }}>
+                <span aria-hidden="true" style={{ flexShrink: 0, marginTop: 4 }}>
+                  <Icon name="CheckCircle2" size={18} style={{ color: "var(--palm)" }} />
+                </span>
+                <span>{s}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {flags.length > 0 && (
+        <div className="mt-8" role="region" aria-label="Issues to address">
+          <h4 className="font-mono-soft mb-3" style={{ fontSize: "12px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--coral)", fontWeight: 700 }}>
+            Where the line slips
+          </h4>
+          <ul className="space-y-3" style={{ listStyle: "none", padding: 0 }}>
+            {flags.map((f, i) => (
+              <li key={i} className="p-4 rounded-md flex gap-3"
+                style={{ backgroundColor: f.level === "hard" ? "#FFF1F1" : "#FFF9E6",
+                         border: `2px solid ${f.level === "hard" ? "var(--coral)" : "var(--sunshine-warm)"}` }}>
+                <span aria-hidden="true" style={{ flexShrink: 0, marginTop: 2 }}>
+                  <Icon name="AlertTriangle" size={20} style={{ color: f.level === "hard" ? "var(--coral)" : "var(--sunshine-warm)" }} />
+                </span>
+                <span className="font-body" style={{ fontSize: "15.5px", color: "var(--ink)", lineHeight: 1.55 }}>
+                  <strong style={{ textTransform: "uppercase", fontSize: "11px", letterSpacing: "0.1em", color: f.level === "hard" ? "var(--coral)" : "var(--sunshine-warm)", marginRight: 8, fontFamily: "JetBrains Mono, monospace" }}>
+                    {f.level === "hard" ? "Critical" : "Soft"}
+                  </strong>
+                  {f.text}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="mt-12 divider-rule" role="presentation" />
+
+      <div className="mt-10">
+        <span className="font-mono-soft" style={{ fontSize: "12px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ink-2)", fontWeight: 700 }}>
+          Board Brief â composed
+        </span>
+        <h3 className="font-display mt-3" style={{ fontSize: "clamp(26px, 4vw, 36px)", color: "var(--ink)", fontVariationSettings: '"opsz" 144, "wght" 600' }}>
+          {data.setup.org || "Untitled Organisation"}
+        </h3>
+        <div className="flex flex-wrap gap-2 mt-4">
+          {data.setup.sector && <span className="tag-pill">{data.setup.sector}</span>}
+          {data.setup.role && <span className="tag-pill">{data.setup.role}</span>}
+          {data.strategy.posture && <span className="tag-pill" style={{ borderColor: "var(--sea-deep)", color: "#fff", backgroundColor: "var(--sea-deep)" }}>
+            {STRATEGIC_OPTIONS.find(o => o.id === data.strategy.posture)?.label}
+          </span>}
+        </div>
+
+        <div className="mt-8">
+          <pre className="font-body whitespace-pre-wrap p-6 rounded-md"
+            style={{ backgroundColor: "var(--paper)", border: "2px solid var(--rule)",
+                     fontSize: "14px", lineHeight: 1.65, color: "var(--ink)",
+                     fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}
+            tabIndex={0} aria-label="Generated board brief text">
+            {briefText}
+          </pre>
+        </div>
+
+        <div className="flex flex-wrap gap-3 mt-6 no-print">
+          <button onClick={copyBrief} className="btn-ghost px-5 py-3 flex items-center gap-2" style={{ fontSize: "15px" }} aria-live="polite">
+            <Icon name="Copy" size={16} />
+            {copied ? "Copied" : "Copy board brief"}
+          </button>
+          <button onClick={() => window.print()} className="btn-ghost px-5 py-3 flex items-center gap-2" style={{ fontSize: "15px" }}>
+            <Icon name="Printer" size={16} />
+            Print
+          </button>
+          <button onClick={onReset} className="btn-ghost px-5 py-3 flex items-center gap-2" style={{ fontSize: "15px" }}>
+            <Icon name="RotateCcw" size={16} />
+            Reset & re-run
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ==================================================================
+   Stepper
+   ================================================================== */
+const Stepper = ({ step, onSelect }) => (
+  <nav className="flex flex-wrap gap-2 mb-10 no-print" aria-label="Diagnostic progress">
+    {STEPS.map((s, i) => {
+      const active = i === step;
+      const done = i < step;
+      return (
+        <button key={s.id} onClick={() => onSelect(i)} aria-current={active ? "step" : undefined}
+          className="flex items-center gap-2 px-3 py-2 rounded-md"
+          style={{
+            backgroundColor: active ? "var(--sea-deep)" : (done ? "var(--sand)" : "var(--paper)"),
+            color: active ? "#FFFFFF" : "var(--ink)",
+            border: `2px solid ${active ? "var(--sea-deep)" : (done ? "var(--palm)" : "var(--rule-soft)")}`,
+            fontWeight: 600 }}>
+          <span className="font-mono-soft" style={{ fontSize: "11px", letterSpacing: "0.08em", fontWeight: 700, opacity: active ? 1 : 0.85 }}>
+            0{i + 1}
+          </span>
+          <span className="font-display" style={{ fontSize: "14.5px", fontVariationSettings: '"opsz" 14, "wght" 600' }}>
+            {s.title}
+          </span>
+          {done && <span aria-label="Completed" style={{ marginLeft: 2 }}>
+            <Icon name="CheckCircle2" size={14} style={{ color: "var(--palm)" }} />
+          </span>}
+        </button>
+      );
+    })}
+  </nav>
+);
+
+/* ==================================================================
+   Root
+   ================================================================== */
+function ExecutiveAIReadinessDiagnostic() {
+  const [step, setStep] = useState(0);
+  const [data, setData] = useState(initialData());
+  const updateSection = (section) => (key, value) =>
+    setData((d) => ({ ...d, [section]: { ...d[section], [key]: value } }));
+  const diagnostic = useMemo(() => computeDiagnostic(data), [data]);
+  const reset = () => { setData(initialData()); setStep(0); };
+
+  const mainRef = useRef(null);
+  useEffect(() => {
+    if (mainRef.current) {
+      mainRef.current.focus({ preventScroll: true });
+      window.scrollTo({ top: mainRef.current.offsetTop - 24, behavior: "smooth" });
+    }
+  }, [step]);
+
+  const renderStep = () => {
+    switch (step) {
+      case 0: return <StepSetup     data={data.setup}    update={updateSection("setup")} />;
+      case 1: return <StepStrategy  data={data.strategy} update={updateSection("strategy")} />;
+      case 2: return <StepCARE      data={data.care}     update={updateSection("care")} />;
+      case 3: return <StepCRAFT     data={data.craft}    update={updateSection("craft")} />;
+      case 4: return <StepACRE      data={data.acre}     update={updateSection("acre")} />;
+      case 5: return <StepCALFSECAS data={data}
+                                     updateCalf={(k,v) => setData(d => ({...d, calf: {...d.calf, [k]: v}}))}
+                                     updateSecas={(k,v) => setData(d => ({...d, secas: {...d.secas, [k]: v}}))} />;
+      case 6: return <StepWheel     data={data.wheel}    update={updateSection("wheel")} />;
+      case 7: return <StepDiagnostic data={data} diagnostic={diagnostic} onReset={reset} />;
+      default: return null;
+    }
+  };
+
+  return (
+    <div className="caribbean-paper min-h-screen" style={{ color: "var(--ink)" }}>
+      <div className="max-w-5xl mx-auto px-5 md:px-10 py-10 md:py-16">
+        <header className="mb-10 md:mb-14">
+          <div className="flex items-baseline gap-3 mb-5">
+            <div aria-hidden="true" style={{ width: 36, height: 4, background: "linear-gradient(to right, var(--coral), var(--sunshine), var(--palm), var(--sea-deep))", borderRadius: 999 }} />
+            <span className="font-mono-soft" style={{ fontSize: "12px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--sea-deep)", fontWeight: 700 }}>
+              A Diagnostic for Executive AI Sovereignty
+            </span>
+          </div>
+          <h1 className="font-display"
+            style={{ fontSize: "clamp(40px, 7vw, 76px)",
+                     fontVariationSettings: '"opsz" 144, "wght" 600, "SOFT" 30',
+                     letterSpacing: "-0.035em", lineHeight: 0.98, color: "var(--ink)" }}>
+            The Executive AI{" "}
+            <em style={{ fontStyle: "italic", color: "var(--coral)", fontVariationSettings: '"opsz" 144, "wght" 600' }}>
+              Readiness
+            </em>{" "}
+            Diagnostic
+          </h1>
+
+          <p className="font-body mt-7" style={{ fontSize: "18px", lineHeight: 1.65, color: "var(--ink)", maxWidth: "720px" }}>
+            <span className="font-display" style={{ float: "left", fontSize: "3.4em", lineHeight: 0.85, margin: "0.05em 0.1em 0 0", color: "var(--sea-deep)", fontVariationSettings: '"opsz" 144, "wght" 700' }}>
+              N
+            </span>
+            inety-five per cent of enterprise AI pilots produce no measurable P&L impact. The
+            failure is rarely technical â it is in the strategic frame, the architecture, the
+            output assurance, the readiness conditions, and the governance. This diagnostic
+            walks you through eight executive decisions, scored against the integrated
+            framework that distinguishes the Sovereign 5% from the GenAI Divide.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-2">
+            <span className="tag-pill" style={{ background: "var(--sea-deep)", color: "#FFFFFF", borderColor: "var(--sea-deep)" }}>CARE</span>
+            <span className="tag-pill" style={{ background: "var(--coral)", color: "#FFFFFF", borderColor: "var(--coral)" }}>CRAFT</span>
+            <span className="tag-pill" style={{ background: "var(--palm)", color: "#FFFFFF", borderColor: "var(--palm)" }}>ACRE</span>
+            <span className="tag-pill" style={{ background: "var(--sunshine)", color: "var(--ink)", borderColor: "var(--ink)" }}>CALF / SECAS</span>
+            <span className="tag-pill" style={{ background: "var(--hibiscus)", color: "#FFFFFF", borderColor: "var(--hibiscus)" }}>Governance Wheel</span>
+          </div>
+        </header>
+
+        <div className="divider-rule mb-10" role="presentation" />
+
+        <Stepper step={step} onSelect={setStep} />
+
+        <main id="main-content" ref={mainRef} tabIndex="-1" className="min-h-[420px]" style={{ outline: "none" }}>
+          {renderStep()}
+        </main>
+
+        {step < STEPS.length - 1 && (
+          <div className="mt-12 pt-8 flex items-center justify-between flex-wrap gap-4 no-print"
+            style={{ borderTop: "2px solid var(--rule-soft)" }}>
+            <button onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0}
+              className="btn-ghost px-5 py-3 flex items-center gap-2" style={{ fontSize: "15px" }}
+              aria-label="Go to previous step">
+              <Icon name="ChevronLeft" size={16} /> Back
+            </button>
+            <span className="font-mono-soft hidden md:inline" aria-live="polite"
+              style={{ fontSize: "12px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ink-2)", fontWeight: 700 }}>
+              Step 0{step + 1} of 0{STEPS.length}
+            </span>
+            <button onClick={() => setStep((s) => Math.min(STEPS.length - 1, s + 1))}
+              className="btn-primary px-6 py-3 flex items-center gap-2" style={{ fontSize: "15px" }}
+              aria-label={step === STEPS.length - 2 ? "See diagnostic" : "Continue"}>
+              {step === STEPS.length - 2 ? "See diagnostic" : "Continue"}
+              <Icon name="ChevronRight" size={16} />
+            </button>
+          </div>
+        )}
+
+        <footer className="mt-20 pt-8" style={{ borderTop: "2px solid var(--rule-soft)" }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <span className="font-mono-soft block mb-2" style={{ fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--sea-deep)", fontWeight: 700 }}>The premise</span>
+              <p className="font-body" style={{ fontSize: "14px", color: "var(--ink)", lineHeight: 1.55 }}>
+                Most AI failures are not technical. They are leadership failures: weak strategic
+                framing, mismatched governance, undisciplined adoption, and an underdeveloped
+                sense of what AI is actually for.
+              </p>
+            </div>
+            <div>
+              <span className="font-mono-soft block mb-2" style={{ fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--coral)", fontWeight: 700 }}>Frameworks</span>
+              <p className="font-body" style={{ fontSize: "14px", color: "var(--ink)", lineHeight: 1.55 }}>
+                CARE Â· CRAFT Â· ACRE Â· CALF/SECAS Â· the Jowallah Governance Wheel.
+                Anchored in MIT NANDA's GenAI Divide research, the NIST AI Risk Management
+                Framework, McKinsey 7S, Kotter, and Yale SOM.
+              </p>
+            </div>
+            <div>
+              <span className="font-mono-soft block mb-2" style={{ fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--palm-deep)", fontWeight: 700 }}>Conviction</span>
+              <p className="font-body italic" style={{ fontSize: "14px", color: "var(--ink)", lineHeight: 1.55 }}>
+                Sovereign AI is not anti-vendor. It is the discipline of choosing the terms on
+                which external tools enter the operating model â and refusing the ones that
+                do not protect data, decisions, and values.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-10 pt-6 flex flex-wrap items-center justify-between gap-3" style={{ borderTop: "1px solid var(--rule-soft)" }}>
+            <span className="font-mono-soft" style={{ fontSize: "11.5px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ink-2)", fontWeight: 700 }}>
+              By <span style={{ color: "var(--sea-deep)" }}>Dr. Rohan Jowallah</span> Â· Workshop Edition Â· 2026
+            </span>
+            <span className="font-mono-soft" style={{ fontSize: "11px", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--ink-2)" }}>
+              Caribbean palette Â· WCAG AA+ Â· Keyboard-first
+            </span>
+          </div>
+          <p className="font-body mt-4" style={{ fontSize: "12px", color: "var(--ink-2)", lineHeight: 1.5, maxWidth: "720px" }}>
+            CARE, CRAFT, ACRE, CALF/SECAS, and the Jowallah Governance Wheel are the intellectual
+            property of Dr. Rohan Jowallah. Â© 2026. All rights reserved.
+          </p>
+        </footer>
+      </div>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<ExecutiveAIReadinessDiagnostic />);
+  </script>
+</body>
+</html>
